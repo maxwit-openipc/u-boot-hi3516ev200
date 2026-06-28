@@ -1,21 +1,19 @@
-#!/bin/sh -e
+mkdir -vp output
 
-export ARCH=arm
-export CROSS_COMPILE=${CROSS_COMPILE:-arm-himix100-linux-}
+for soc in hi3516ev200 hi3516ev300 hi3518ev300
+do
+    make clean
 
-SOCS="hi3516ev200 hi3516ev300 hi3518ev300"
+    cp -v config-${soc} .config
 
-for soc in ${SOCS};do
+    cp -v reg_info_${soc}.bin .reg
+    make CROSS_COMPILE=arm-himix100-linux- -j$(nproc)
 
-make clean
-cp config-${soc} .config
-cp reg_info_${soc}.bin .reg
-make -j8 #KCFLAGS=-DCONFIG_XM_COMPATIBLE=1
+    [ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash || cp tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/${soc}/hw_compressed/ -rf
 
-[ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash || cp tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/${soc}/hw_compressed/ -rf
+    make CROSS_COMPILE=arm-himix100-linux- u-boot-z.bin
 
-make u-boot-z.bin
+    cp -v u-boot-${soc}.bin output/
 
-cp -v u-boot-${soc}.bin /srv/tftp/
-
+    echo
 done
