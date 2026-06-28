@@ -149,6 +149,12 @@ endmenu
 
 menu "Boot commands"
 
+config PREBOOT
+	string "preboot default value"
+	default "mmc rescan; if fatload mmc 0 $baseaddr firmware/preboot.scr; then source $baseaddr; fi"
+	help
+	  This is the default of "preboot" environment variable.
+
 config CMD_BOOTD
 	bool "bootd"
 	default y
