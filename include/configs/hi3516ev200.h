@@ -191,7 +191,6 @@
 /* env in flash instead of CFG_ENV_IS_NOWHERE */
 #define CONFIG_ENV_OFFSET       0x80000      /* environment starts here */
 
-#define CONFIG_ENV_SIZE         0x40000
 #define CONFIG_ENV_SECT_SIZE        0x10000
 #define CONFIG_ENV_VARS_UBOOT_CONFIG
 
