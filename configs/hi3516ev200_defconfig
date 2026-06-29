@@ -181,6 +181,7 @@ CONFIG_MMC=y
 # ARM debug
 #
 # CONFIG_DEBUG_LL is not set
+CONFIG_DEFAULT_DEVICE_TREE=""
 # CONFIG_AHCI is not set
 
 #
@@ -289,6 +290,7 @@ CONFIG_AUTOBOOT=y
 #
 # Boot commands
 #
+CONFIG_PREBOOT="mmc rescan; if fatload mmc 0 $baseaddr firmware/preboot.scr; then source $baseaddr; fi"
 # CONFIG_CMD_BOOTD is not set
 CONFIG_CMD_BOOTM=y
 # CONFIG_CMD_BOOTZ is not set
@@ -398,7 +400,9 @@ CONFIG_SUPPORT_OF_CONTROL=y
 #
 # Device Tree Control
 #
-# CONFIG_OF_CONTROL is not set
+CONFIG_OF_CONTROL=y
+CONFIG_OF_SEPARATE=y
+# CONFIG_OF_EMBED is not set
 CONFIG_NET=y
 CONFIG_NET_RANDOM_ETHADDR=y
 # CONFIG_NETCONSOLE is not set
@@ -422,6 +426,8 @@ CONFIG_DM_SEQ_ALIAS=y
 # CONFIG_REGMAP is not set
 # CONFIG_SPL_REGMAP is not set
 # CONFIG_DEVRES is not set
+CONFIG_SIMPLE_BUS=y
+CONFIG_OF_TRANSLATE=y
 # CONFIG_ADC is not set
 # CONFIG_ADC_EXYNOS is not set
 # CONFIG_ADC_SANDBOX is not set
@@ -484,6 +490,7 @@ CONFIG_DM_SEQ_ALIAS=y
 #
 # Mailbox Controller Support
 #
+# CONFIG_DM_MAILBOX is not set
 
 #
 # Memory Controller drivers
@@ -569,6 +576,7 @@ CONFIG_PHY_HISI_USB=y
 #
 # Power Domain Support
 #
+# CONFIG_POWER_DOMAIN is not set
 # CONFIG_DM_PMIC is not set
 # CONFIG_DM_REGULATOR is not set
 # CONFIG_DM_PWM is not set
@@ -581,6 +589,7 @@ CONFIG_PHY_HISI_USB=y
 #
 # Reset Controller Support
 #
+# CONFIG_DM_RESET is not set
 
 #
 # Real Time Clock
@@ -650,6 +659,7 @@ CONFIG_PHY_HISI_USB=y
 # CONFIG_VIDEO_LCD_SSD2828 is not set
 # CONFIG_VIDEO_MVEBU is not set
 # CONFIG_DISPLAY is not set
+# CONFIG_VIDEO_TEGRA20 is not set
 # CONFIG_VIDEO_BRIDGE is not set
 # CONFIG_LCD is not set
 # CONFIG_PHYS_TO_BUS is not set
