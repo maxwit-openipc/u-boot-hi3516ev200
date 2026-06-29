@@ -119,3 +119,4 @@ arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.map
 arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.srec
 arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.text
 arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.tmp
+arch/arm/cpu/armv7/*/hw_compressed/gzip
