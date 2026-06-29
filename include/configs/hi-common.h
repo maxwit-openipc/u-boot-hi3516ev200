@@ -38,14 +38,6 @@
 #define CONFIG_ENV_SECT_SIZE        0x10000
 #define CONFIG_ENV_VARS_UBOOT_CONFIG
 
-#undef CONFIG_SYS_PROMPT
-#define CONFIG_SYS_PROMPT	"OpenIPC # "
-#define CONFIG_AUTOBOOT_KEYED
-#define CONFIG_AUTOBOOT_PROMPT		\
-    "Press Ctrl-c to stop autoboot... %d \n", bootdelay
-#define CONFIG_AUTOBOOT_STOP_STR	"\x3"
-#define AUTOBOOT_KEYED_CTRLC
-
 #define CONFIG_SYS_LONGHELP
 #define CONFIG_CMDLINE_EDITING
 #define CONFIG_SYS_MAXARGS      64  /* max command args */
