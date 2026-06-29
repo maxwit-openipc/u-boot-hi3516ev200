@@ -755,11 +755,14 @@ void tftp_start(enum proto_t protocol)
 			tftp_filename[MAX_LEN - 1] = 0;
 		} else {
 			tftp_remote_ip = string_to_ip(net_boot_file_name);
-			*p = '\0';
-			setenv("serverip", net_boot_file_name);
-
 			strncpy(tftp_filename, p + 1, MAX_LEN);
 			tftp_filename[MAX_LEN - 1] = 0;
+
+			char temp[1024] = {0};
+			memcpy(temp, net_boot_file_name, strlen(net_boot_file_name));
+			char* comma = strchr(temp, ':');
+			*comma = '\0';
+			setenv("serverip", temp);
 		}
 	}
 
