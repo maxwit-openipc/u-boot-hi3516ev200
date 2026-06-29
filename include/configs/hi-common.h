@@ -97,9 +97,9 @@
 #define CONFIG_SYS_PROMPT_HUSH_PS2 " > "
 
 /* #define CONFIG_MTD 1
-/*#define CONFIG_MTD_UBI 1*/
-/*#define CONFIG_CMD_UBI 1*/
-/*#define CONFIG_CMD_UBIFS 1
+#define CONFIG_MTD_UBI 1
+#define CONFIG_CMD_UBI 1
+#define CONFIG_CMD_UBIFS 1
 #define CONFIG_MTD_UBI_WL_THRESHOLD 4096
 #define CONFIG_MTD_UBI_BEB_LIMIT 20*/
 
