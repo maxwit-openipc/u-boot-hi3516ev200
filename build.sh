@@ -1,13 +1,12 @@
 mkdir -vp output
 
 test -z "$TOOLCHAIN" && TOOLCHAIN=arm-himix100-linux-
-# TOOLCHAIN=$PWD/../output-hi3516ev200/host/bin/arm-openipc-linux-musleabi-
 
 for soc in hi3516ev200 hi3516ev300 hi3518ev300
 do
     make clean
 
-    cp -v config-${soc} .config
+    make ${soc}_defconfig
 
     cp -v reg_info_${soc}.bin .reg
     make CROSS_COMPILE=$TOOLCHAIN -j$(nproc) || exit 1
