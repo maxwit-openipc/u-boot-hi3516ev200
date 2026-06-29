@@ -89,10 +89,6 @@ GTAGS
 
 output
 
-arch/arm/cpu/armv7/hi3516ev200/hw_compressed/
-arch/arm/cpu/armv7/hi3518ev300/hw_compressed/
-arch/arm/cpu/armv7/hi3516ev300/hw_compressed/
-
 include/ms_version.h
 drivers/ddr/hisilicon/default/cmd_bin/ddr_cmd.bin
 tools/hi_gzip/bin/
