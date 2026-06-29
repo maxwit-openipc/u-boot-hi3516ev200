@@ -63,7 +63,6 @@
 #define GICC_BASE           0xf6802000
 
 /* Size of malloc() pool */
-#define CONFIG_SYS_MALLOC_LEN       (CONFIG_ENV_SIZE + SZ_128K)
 
 /* PL011 Serial Configuration */
 #define CONFIG_BAUDRATE         115200
@@ -86,14 +85,12 @@
 #endif
 
 #ifdef CONFIG_HIFMC_SPI_NOR
-#define CONFIG_CMD_SF
 #define CONFIG_ENV_IS_IN_SPI_FLASH
 #define CONFIG_SPI_NOR_MAX_CHIP_NUM 1
 #define CONFIG_SPI_NOR_QUIET_TEST
 #endif
 
 #ifdef CONFIG_HIFMC_SPI_NAND
-#define CONFIG_CMD_NAND
 #define CONFIG_ENV_IS_IN_NAND
 #define CONFIG_SPI_NAND_MAX_CHIP_NUM    1
 #define CONFIG_SYS_MAX_NAND_DEVICE  CONFIG_SPI_NAND_MAX_CHIP_NUM
@@ -103,7 +100,6 @@
 
 #ifdef CONFIG_HIFMC_NAND
 /* #define CONFIG_NAND_EDO_MODE */
-#define CONFIG_CMD_NAND
 #define CONFIG_ENV_IS_IN_NAND
 #define CONFIG_NAND_MAX_CHIP_NUM    1
 #define CONFIG_SYS_MAX_NAND_DEVICE  CONFIG_NAND_MAX_CHIP_NUM
@@ -130,7 +126,6 @@
 #ifdef CONFIG_MMC
 #define CONFIG_SUPPORT_EMMC_BOOT
 #define CONFIG_GENERIC_MMC
-#define CONFIG_CMD_MMC
 #define CONFIG_ENV_IS_IN_MMC
 #define CONFIG_SYS_MMC_ENV_DEV  0
 #define CONFIG_EXT4_SPARSE
@@ -159,7 +154,6 @@
  */
 
 /* Assume we boot with root on the seventh partition of eMMC */
-#define CONFIG_BOOTARGS "console=ttyAMA0,115200n8 root=/dev/mtdblock2 rw"
 #define CONFIG_SYS_USB_XHCI_MAX_ROOT_PORTS 2
 #define BOOT_TARGET_DEVICES(func) \
     func(USB, usb, 0) \
@@ -173,9 +167,7 @@
 #define CONFIG_COMMAND_HISTORY
 
 /* env in flash instead of CFG_ENV_IS_NOWHERE */
-#define CONFIG_ENV_OFFSET       0x80000      /* environment starts here */
 
-#define CONFIG_ENV_SIZE         0x40000
 #define CONFIG_ENV_SECT_SIZE        0x10000
 #define CONFIG_ENV_VARS_UBOOT_CONFIG
 
@@ -191,7 +183,6 @@
 #define CONFIG_CMDLINE_EDITING
 #define CONFIG_SYS_MAXARGS      64  /* max command args */
 
-#define CONFIG_SYS_NO_FLASH
 
 #define CONFIG_DDR_TRAINING_V2
 
@@ -215,7 +206,6 @@
 
 #ifndef CONFIG_GENERIC_MMC
 #define CONFIG_GENERIC_MMC
-#define CONFIG_CMD_MMC
 #endif
 
 #ifndef CONFIG_MMC

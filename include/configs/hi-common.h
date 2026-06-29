@@ -50,8 +50,6 @@
 #define CONFIG_CMDLINE_EDITING
 #define CONFIG_SYS_MAXARGS      64  /* max command args */
 
-#define CONFIG_SYS_NO_FLASH
-
 #define CONFIG_SYS_MALLOC_LEN       (32 * SZ_128K)
 
 #define CONFIG_DDR_TRAINING_V2
