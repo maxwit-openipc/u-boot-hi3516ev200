@@ -290,7 +290,6 @@ CONFIG_AUTOBOOT=y
 #
 # Boot commands
 #
-CONFIG_PREBOOT="mmc rescan; if fatload mmc 0 $baseaddr firmware/preboot.scr; then source $baseaddr; fi"
 # CONFIG_CMD_BOOTD is not set
 CONFIG_CMD_BOOTM=y
 # CONFIG_CMD_BOOTZ is not set

@@ -12,8 +12,7 @@ ifeq ($(DEVICE_TREE),)
 DEVICE_TREE := unset
 endif
 
-#dt_dir=arch/$(ARCH)/dts
-dt_dir=dts/upstream/arch/arm/boot/dts
+dt_dir=arch/$(ARCH)/dts
 
 ifneq ($(EXT_DTB),)
 DTB := $(EXT_DTB)

@@ -296,6 +296,10 @@ dtb-$(CONFIG_SOC_KEYSTONE) += k2hk-evm.dtb \
 dtb-$(CONFIG_TARGET_SAMA5D2_XPLAINED) += \
 	at91-sama5d2_xplained.dtb
 
+dtb-$(CONFIG_TARGET_HI3516EV200) += hi3516ev200-demb.dtb
+dtb-$(CONFIG_TARGET_HI3516EV300) += hi3516ev300-demb.dtb
+dtb-$(CONFIG_TARGET_HI3518EV300) += hi3518ev300-demb.dtb
+
 targets += $(dtb-y)
 
 # Add any required device tree compiler flags here
