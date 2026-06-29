@@ -145,7 +145,7 @@ static void netboot_update_env(void)
 	 * Only attempt to change serverip if net/bootp.c:BootpCopyNetParams()
 	 * could have set it
 	 */
-	if (net_server_ip.s_addr) {
+	if (net_server_ip.s_addr && !strchr(net_boot_file_name, ':')) {
 		ip_to_string(net_server_ip, tmp);
 		setenv("serverip", tmp);
 	}
