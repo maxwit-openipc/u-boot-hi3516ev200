@@ -1,6 +1,6 @@
 mkdir -vp output
 
-TOOLCHAIN=arm-himix100-linux-
+test -z "$TOOLCHAIN" && TOOLCHAIN=arm-himix100-linux-
 # TOOLCHAIN=$PWD/../output-hi3516ev200/host/bin/arm-openipc-linux-musleabi-
 
 for soc in hi3516ev200 hi3516ev300 hi3518ev300
