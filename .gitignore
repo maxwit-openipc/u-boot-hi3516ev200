@@ -121,3 +121,8 @@ arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.srec
 arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.text
 arch/arm/cpu/armv7/*/hw_compressed/u-boot-*.tmp
 arch/arm/cpu/armv7/*/hw_compressed/gzip
+
+drivers/ddr/hisilicon/default/cmd_bin/ddr_training_console.c
+drivers/ddr/hisilicon/default/cmd_bin/ddr_training_ctl.c
+drivers/ddr/hisilicon/default/cmd_bin/ddr_training_custom.c
+drivers/ddr/hisilicon/default/cmd_bin/ddr_training_impl.c
