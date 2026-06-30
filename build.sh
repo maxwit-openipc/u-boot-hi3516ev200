@@ -15,7 +15,7 @@ test -z $OUTPUT && OUTPUT=output
 mkdir -p $OUTPUT
 
 if [ -z "$TOOLCHAIN" ]; then
-	for t in arm-himix100-linux- arm-none-eabi-
+	for t in arm-himix100-linux- arm-linux-gcc arm-none-eabi-
 	do
 		if which ${t}gcc > /dev/null; then
 			TOOLCHAIN=$t
@@ -35,7 +35,7 @@ do
 
     echo "Building u-boot for $soc ..."
 
-    make clean
+    make distclean
 
     make ${soc}_defconfig
 
