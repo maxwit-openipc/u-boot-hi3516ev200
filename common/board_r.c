@@ -73,9 +73,15 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
+#define HI3516EV200 0x3516E200
+#define HI3516EV300 0x3516E300
+#define HI3518EV300 0x3518E300
+
 #if defined(CONFIG_SPARC)
 extern int prom_init(void);
 #endif
+
+#define CHIP_ID_REG 0x12020EE0
 
 ulong monitor_flash_len;
 
@@ -564,6 +570,24 @@ static int initr_env(void)
 #endif /* CONFIG_I2CFAST */
 #endif /* CONFIG_405GP, CONFIG_405EP */
 #endif /* CONFIG_SYS_EXTBDINFO */
+
+	uint32_t chip_id = readl(CHIP_ID_REG);
+	switch (chip_id) 
+	{
+		case HI3516EV200:
+			setenv("soc", "hi3516ev200");
+			break;
+		case HI3516EV300:
+			setenv("soc", "hi3516ev300");
+			break;
+		case HI3518EV300:
+			setenv("soc", "hi3518ev300");
+			break;
+		default:
+			printf("unknown chipid %08X\n", chip_id);
+			break;
+	};
+
 	return 0;
 }
 #endif
