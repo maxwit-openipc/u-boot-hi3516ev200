@@ -748,7 +748,7 @@ void tftp_start(enum proto_t protocol)
 		printf("*** Warning: no boot file name; using '%s'\n",
 		       tftp_filename);
 	} else {
-		char *p = strchr(net_boot_file_name, ':');
+		const char *p = strchr(net_boot_file_name, ':');
 
 		if (p == NULL) {
 			strncpy(tftp_filename, net_boot_file_name, MAX_LEN);
@@ -757,6 +757,16 @@ void tftp_start(enum proto_t protocol)
 			tftp_remote_ip = string_to_ip(net_boot_file_name);
 			strncpy(tftp_filename, p + 1, MAX_LEN);
 			tftp_filename[MAX_LEN - 1] = 0;
+
+			char temp[16];
+			size_t len = p - net_boot_file_name;
+			if (len < 7 || len >= sizeof(temp)) {
+				printf("Invalid server ip!\n");
+				return;
+			}
+			memcpy(temp, net_boot_file_name, len);
+			temp[len] = '\0';
+			setenv("serverip", temp);
 		}
 	}
 
