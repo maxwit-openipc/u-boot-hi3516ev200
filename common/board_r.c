@@ -552,6 +552,8 @@ static int initr_env(void)
 
 	/* Initialize from environment */
 	load_addr = getenv_ulong("loadaddr", 16, load_addr);
+	setenv("loadaddr", load_addr);
+
 #if defined(CONFIG_SYS_EXTBDINFO)
 #if defined(CONFIG_405GP) || defined(CONFIG_405EP)
 #if defined(CONFIG_I2CFAST)
@@ -572,21 +574,24 @@ static int initr_env(void)
 #endif /* CONFIG_SYS_EXTBDINFO */
 
 	uint32_t chip_id = readl(CHIP_ID_REG);
-	switch (chip_id) 
-	{
+	const char *soc_name= NULL;
+
+	switch (chip_id) {
 		case HI3516EV200:
-			setenv("soc", "hi3516ev200");
+			soc_name = "hi3516ev200";
 			break;
 		case HI3516EV300:
-			setenv("soc", "hi3516ev300");
+			soc_name = "hi3516ev300";
 			break;
 		case HI3518EV300:
-			setenv("soc", "hi3518ev300");
+			soc_name = "hi3518ev300";
 			break;
 		default:
-			printf("unknown chipid %08X\n", chip_id);
+			printf("unknown chipid 0x%08X\n", chip_id);
 			break;
 	};
+
+	setenv("soc", soc_name);
 
 	return 0;
 }
