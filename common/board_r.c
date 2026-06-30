@@ -552,7 +552,7 @@ static int initr_env(void)
 
 	/* Initialize from environment */
 	load_addr = getenv_ulong("loadaddr", 16, load_addr);
-	setenv("loadaddr", load_addr);
+	setenv_hex("loadaddr", load_addr);
 
 #if defined(CONFIG_SYS_EXTBDINFO)
 #if defined(CONFIG_405GP) || defined(CONFIG_405EP)
