@@ -56,10 +56,10 @@ jobs:
       - name: Build
         run: |
           export PATH="$PWD/toolchain/arm-himix100-linux/bin:$PATH"
-          make clean
-          cp config-${{ matrix.soc }} .config
+          make distclean
+          make ${{ matrix.soc }}_defconfig
           cp reg_info_${{ matrix.soc }}.bin .reg
-          make CROSS_COMPILE=arm-himix100-linux- -j$(nproc)
+          make CROSS_COMPILE=arm-himix100-linux- DEVICE_TREE=${{ matrix.soc }}-demb -j$(nproc)
           # The Kbuild needs hi_gzip to compress the boot image. The
           # build.sh shorthand:
           #   [ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip \

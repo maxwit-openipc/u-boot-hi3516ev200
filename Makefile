@@ -1613,8 +1613,8 @@ distclean: mrproper
 		\( -name '*.orig' -o -name '*.rej' -o -name '*~' \
 		-o -name '*.bak' -o -name '#*#' -o -name '.*.orig' \
 		-o -name '.*.rej' -o -name '*%' -o -name 'core' \
-		-o -name '*.pyc' \) \
-		-type f -print | xargs rm -f
+		-o -name '*.pyc' -o -name 'ddr*.d' \) \
+		-type f -print | xargs rm -vf
 	@rm -f boards.cfg
 
 backup:
