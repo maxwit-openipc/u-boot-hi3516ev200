@@ -994,6 +994,14 @@ static int uboot_cli_readline(struct in_str *i)
 		prompt = ps_prompt;
 #endif
 
+	char prompt_buf[128];
+	const char *board_name = getenv("board");
+	/* 8 is the length of "IPC-" + " $ " + \0 */
+	if (board_name != NULL && strlen(board_name) + 8 <= sizeof(prompt_buf)) {
+		snprintf(prompt_buf, sizeof(prompt_buf), "IPC-%s $ ", board_name);
+		prompt = prompt_buf;
+	}
+
 	return cli_readline(prompt);
 }
 #endif

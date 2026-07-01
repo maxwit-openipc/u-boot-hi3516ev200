@@ -22,7 +22,9 @@
 
 / {
 	model = "Hisilicon HI3516EV200 DEMO Board";
-	compatible = "hisilicon,hi3516ev200";
+	compatible = "hisilicon,hi3516ev200-demb",
+		"hisilicon,hi3516ev200",
+		"hisilicon,hi3516ev200";
 
 	memory {
 		device_type = "memory";

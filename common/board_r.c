@@ -593,6 +593,18 @@ static int initr_env(void)
 
 	setenv("soc", soc_name);
 
+#ifdef CONFIG_OF_CONTROL
+	int len = 0;
+	const char *compatible = NULL;
+
+	compatible = fdt_stringlist_get(gd->fdt_blob, 0, "compatible", 0, &len);
+	if (compatible != NULL && len > 0) {
+		const char *comma = strchr(compatible, ',');
+		if (comma)
+			setenv("board", comma + 1);
+	}
+#endif
+
 	return 0;
 }
 #endif
