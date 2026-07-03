@@ -172,3 +172,8 @@
 	status = "okay";
 };
 
+&{/soc} {
+	cis {
+		compatible = "sony,imx335";
+	};
+};
