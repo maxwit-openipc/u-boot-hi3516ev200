@@ -166,3 +166,8 @@
 	status = "okay";
 };
 
+&{/soc} {
+	cis {
+		compatible = "sony,imx307";
+	};
+};

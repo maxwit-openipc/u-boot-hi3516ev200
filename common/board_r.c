@@ -539,6 +539,12 @@ static int should_load_env(void)
 #endif
 }
 
+static void setenv_after_char(const char *str, const char ch, const char *env_name) {
+	const char *ptr = strchr(str, ch);
+	if (ptr)
+		setenv(env_name, ptr + 1);
+}
+
 static int initr_env(void)
 {
 	/* initialize environment */
@@ -596,12 +602,18 @@ static int initr_env(void)
 #ifdef CONFIG_OF_CONTROL
 	int len = 0;
 	const char *compatible = NULL;
-
 	compatible = fdt_stringlist_get(gd->fdt_blob, 0, "compatible", 0, &len);
-	if (compatible != NULL && len > 0) {
-		const char *comma = strchr(compatible, ',');
-		if (comma)
-			setenv("board", comma + 1);
+	if (compatible != NULL && len > 0)
+		setenv_after_char(compatible, ',', "board");
+
+	int cis_offset = 0;
+	cis_offset = fdt_path_offset(gd->fdt_blob, "/soc/cis");
+	if (cis_offset > 0) {
+		len = 0;
+		compatible = NULL;
+		compatible = fdt_getprop(gd->fdt_blob, cis_offset, "compatible", &len);
+		if (compatible != NULL && len > 0)
+			setenv_after_char(compatible, ',', "sensor");
 	}
 #endif
 
