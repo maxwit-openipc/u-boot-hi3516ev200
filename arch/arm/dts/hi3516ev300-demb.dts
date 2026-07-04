@@ -28,6 +28,12 @@
 		device_type = "memory";
 		reg = <0x40000000 0x20000000>;
 	};
+
+	soc {
+		cis {
+			compatible = "sony,imx335";
+		};
+	}
 };
 
 &uart0 {
@@ -170,10 +176,4 @@
 
 &gpio_chip9 {
 	status = "okay";
-};
-
-&{/soc} {
-	cis {
-		compatible = "sony,imx335";
-	};
 };
