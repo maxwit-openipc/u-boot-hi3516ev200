@@ -14,7 +14,7 @@ config DMA_ADDR_T_64BIT
 	default y if ARM64
 
 config MINI_BOOT
-        bool "Enable hisi minit uboot"
+		bool "Enable hisi minit uboot"
 	default n
 
 config HAS_VBAR
@@ -777,36 +777,36 @@ config TARGET_HI3516AV300
 	  Support for Hisilicon Hi3516AV300 platform.
 
 config TARGET_HI3516EV200
-    bool "Support Hi3516EV200"
-    select CPU_V7
+	bool "Support Hi3516EV200"
+	select CPU_V7
 	select DM if !MINI_BOOT
 	select CPU_V7_HAS_NONSEC if !MINI_BOOT
-    help
-    Support for Hisilicon Hi3516EV200 platform.
+	help
+	Support for Hisilicon Hi3516EV200 platform.
 
 config TARGET_HI3518EV300
-    bool "Support Hi3518EV300"
-    select CPU_V7
+	bool "Support Hi3518EV300"
+	select CPU_V7
 	select DM if !MINI_BOOT
 	select CPU_V7_HAS_NONSEC if !MINI_BOOT
-    help
-    Support for Hisilicon Hi3518EV300 platform.
+	help
+	Support for Hisilicon Hi3518EV300 platform.
  
 config TARGET_HI3516DV200
-    bool "Support Hi3516DV200"
-    select CPU_V7
+	bool "Support Hi3516DV200"
+	select CPU_V7
 	select DM
 	select CPU_V7_HAS_NONSEC
-    help
-    Support for Hisilicon Hi3516DV200 platform.
+	help
+	Support for Hisilicon Hi3516DV200 platform.
 
 config TARGET_HI3516EV300
-    bool "Support Hi3516EV300"
-    select CPU_V7
+	bool "Support Hi3516EV300"
+	select CPU_V7
 	select DM
 	select CPU_V7_HAS_NONSEC
-    help
-    Support for Hisilicon Hi3516EV300 platform.
+	help
+	Support for Hisilicon Hi3516EV300 platform.
 
 config ARCH_HI35XX
 	bool "Hisilicon Hi35XX SoCs"
