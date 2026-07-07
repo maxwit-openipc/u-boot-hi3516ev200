@@ -779,6 +779,7 @@ config TARGET_HI3516AV300
 config TARGET_HI3516EV200
 	bool "Support Hi3516EV200"
 	select CPU_V7
+	select ARCH_HIBVT
 	select DM if !MINI_BOOT
 	select CPU_V7_HAS_NONSEC if !MINI_BOOT
 	help
@@ -787,6 +788,7 @@ config TARGET_HI3516EV200
 config TARGET_HI3518EV300
 	bool "Support Hi3518EV300"
 	select CPU_V7
+	select ARCH_HIBVT
 	select DM if !MINI_BOOT
 	select CPU_V7_HAS_NONSEC if !MINI_BOOT
 	help
@@ -795,6 +797,7 @@ config TARGET_HI3518EV300
 config TARGET_HI3516DV200
 	bool "Support Hi3516DV200"
 	select CPU_V7
+	select ARCH_HIBVT
 	select DM
 	select CPU_V7_HAS_NONSEC
 	help
@@ -803,10 +806,14 @@ config TARGET_HI3516DV200
 config TARGET_HI3516EV300
 	bool "Support Hi3516EV300"
 	select CPU_V7
+	select ARCH_HIBVT
 	select DM
 	select CPU_V7_HAS_NONSEC
 	help
 	Support for Hisilicon Hi3516EV300 platform.
+
+config ARCH_HIBVT
+	bool
 
 config ARCH_HI35XX
 	bool "Hisilicon Hi35XX SoCs"
