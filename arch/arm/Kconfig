@@ -812,9 +812,6 @@ config TARGET_HI3516EV300
 	help
 	Support for Hisilicon Hi3516EV300 platform.
 
-config ARCH_HIBVT
-	bool
-
 config ARCH_HI35XX
 	bool "Hisilicon Hi35XX SoCs"
 	select DM
@@ -994,6 +991,8 @@ source "arch/arm/mach-exynos/Kconfig"
 source "arch/arm/mach-highbank/Kconfig"
 
 source "arch/arm/mach-hi35xx/Kconfig"
+
+source "arch/arm/mach-hibvt/Kconfig"
 
 source "arch/arm/mach-integrator/Kconfig"
 
