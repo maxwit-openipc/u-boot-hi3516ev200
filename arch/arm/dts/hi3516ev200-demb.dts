@@ -108,7 +108,6 @@
 };
 
 &hisi_femac0 {
-	mac-address = [00 00 00 00 00 00];
 	phy-mode = "mii";
 	phy-handle = <&phy0>;
 	status = "okay";
