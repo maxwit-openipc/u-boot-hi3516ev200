@@ -45,31 +45,31 @@
 };
 
 &i2c_bus0 {
-    status = "okay";
-    clock-frequency = <100000>;
+	status = "okay";
+	clock-frequency = <100000>;
 };
 
 &i2c_bus1 {
-    status = "okay";
-    clock-frequency = <100000>;
+	status = "okay";
+	clock-frequency = <100000>;
 };
 
 &i2c_bus2 {
-    status = "okay";
-    clock-frequency = <100000>;
+	status = "okay";
+	clock-frequency = <100000>;
 };
 
 &spi_bus0{
-    status = "okay";
-    num-cs = <1>;
+	status = "okay";
+	num-cs = <1>;
 
-    spidev@0 {
-        compatible = "rohm,dh2228fv";
-        reg = <0>;
-        pl022,interface = <0>;
-        pl022,com-mode = <0>;
-        spi-max-frequency = <50000000>;
-    };
+	spidev@0 {
+		compatible = "rohm,dh2228fv";
+		reg = <0>;
+		pl022,interface = <0>;
+		pl022,com-mode = <0>;
+		spi-max-frequency = <50000000>;
+	};
 };
 
 &spi_bus1{
