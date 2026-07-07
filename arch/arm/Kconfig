@@ -992,7 +992,7 @@ source "arch/arm/mach-highbank/Kconfig"
 
 source "arch/arm/mach-hi35xx/Kconfig"
 
-source "arch/arm/mach-hibvt/Kconfig"
+source "arch/arm/mach-hisilicon/Kconfig"
 
 source "arch/arm/mach-integrator/Kconfig"
 
