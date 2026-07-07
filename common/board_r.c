@@ -580,8 +580,6 @@ static int initr_env(void)
 	uint32_t soc_id = 0;
 
 	soc_id_ptr = soc_get_id(&soc_id_len);
-	assert(soc_id_len == 4);
-
 	soc_id = *((uint32_t*)soc_id_ptr);
 	switch (soc_id) {
 		case HI3516EV200:
