@@ -573,7 +573,7 @@ static int initr_env(void)
 #endif /* CONFIG_405GP, CONFIG_405EP */
 #endif /* CONFIG_SYS_EXTBDINFO */
 
-#ifdef CONFIG_ARCH_HIBVT
+#ifdef CONFIG_TARGET_HIBVT
 	int soc_id_len = 0;
 	const char *soc_name = NULL;
 	const char *soc_id_ptr = NULL;
