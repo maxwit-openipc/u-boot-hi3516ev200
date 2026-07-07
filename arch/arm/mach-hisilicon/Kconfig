@@ -1,2 +1,2 @@
-config ARCH_HIBVT
+config TARGET_HIBVT
 	bool
