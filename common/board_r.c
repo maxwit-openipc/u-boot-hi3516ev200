@@ -573,10 +573,17 @@ static int initr_env(void)
 #endif /* CONFIG_405GP, CONFIG_405EP */
 #endif /* CONFIG_SYS_EXTBDINFO */
 
-	uint32_t chip_id = readl(CHIP_ID_REG);
-	const char *soc_name= NULL;
+#ifdef CONFIG_ARCH_HIBVT
+	int soc_id_len = 0;
+	const char *soc_name = NULL;
+	const char *soc_id_ptr = NULL;
+	uint32_t soc_id = 0;
 
-	switch (chip_id) {
+	soc_id_ptr = soc_get_id(&soc_id_len);
+	assert(soc_id_len == 4);
+
+	soc_id = *((uint32_t*)soc_id_ptr);
+	switch (soc_id) {
 		case HI3516EV200:
 			soc_name = "hi3516ev200";
 			break;
@@ -587,11 +594,12 @@ static int initr_env(void)
 			soc_name = "hi3518ev300";
 			break;
 		default:
-			printf("unknown chipid 0x%08X\n", chip_id);
+			printf("unknown chipid 0x%08X\n", soc_id);
 			break;
 	};
 
 	setenv("soc", soc_name);
+#endif
 
 #ifdef CONFIG_OF_CONTROL
 	int len = 0;
