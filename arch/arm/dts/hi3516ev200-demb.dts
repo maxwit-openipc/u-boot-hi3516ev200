@@ -32,7 +32,7 @@
 	};
 
 	chosen {
-		bootargs = "mem=32M console=ttyAMA0,115200 panic=20 root=/dev/mtdblock3 rootfstype=squashfs init=/init mtdparts=hi_sfc:256k(boot),64k(env),3072k(kernel),10240k(rootfs),-(rootfs_data)";
+		bootargs = "mem=32M console=ttyAMA0,115200 earlyprintk panic=20 root=/dev/mtdblock3 rootfstype=squashfs init=/init mtdparts=hi_sfc:hi_sfc:256k(boot),64k(env),3072k(kernel),10240k(rootfs),-(rootfs_data)";
 	};
 };
 
