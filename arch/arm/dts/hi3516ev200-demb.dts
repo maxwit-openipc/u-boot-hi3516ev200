@@ -30,10 +30,6 @@
 		device_type = "memory";
 		reg = <0x40000000 0x20000000>;
 	};
-
-	chosen {
-		bootargs = "mem=32M console=ttyAMA0,115200 earlyprintk panic=20 root=/dev/mtdblock3 rootfstype=squashfs init=/init mtdparts=hi_sfc:hi_sfc:256k(boot),64k(env),3072k(kernel),10240k(rootfs),-(rootfs_data)";
-	};
 };
 
 &uart0 {
