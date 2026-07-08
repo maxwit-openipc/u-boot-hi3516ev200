@@ -48,7 +48,8 @@ do
     make CROSS_COMPILE=$TOOLCHAIN u-boot-z.bin || exit 1
 
     # cp -v u-boot-${soc}.bin u-boot-${soc}-universal.bin
-    cp -v u-boot-${soc}.bin output/u-boot-${board}.bin
+    mkdir -vp $OUTPUT/$soc
+    cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
 
     echo
 done
