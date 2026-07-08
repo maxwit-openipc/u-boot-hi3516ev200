@@ -81,8 +81,6 @@ DECLARE_GLOBAL_DATA_PTR;
 extern int prom_init(void);
 #endif
 
-#define CHIP_ID_REG 0x12020EE0
-
 ulong monitor_flash_len;
 
 __weak int board_flash_wp_on(void)
@@ -605,6 +603,16 @@ static int initr_env(void)
 	}
 #endif
 
+	int offset = 0;
+	char serial[CHIP_SERIAL_REG_NUM * 8 + 1] = {0};
+
+	for (int i = 0; i < CHIP_SERIAL_REG_NUM; i++)
+		offset += snprintf(
+			serial + offset, sizeof(serial) - offset,
+			"%08X", readl(CHIP_SERIAL_REG_START + i * 4));
+	serial[sizeof(serial) - 1] = '\0';
+
+	setenv("SN", serial);
 	return 0;
 }
 #endif
