@@ -5,7 +5,7 @@ if [ $# -gt 0 ]; then
 else
 	board_list="
 	hi3516ev200-demb
-	16EV2-2053
+	16ev2-2053
 	hi3516ev300-demb
 	hi3518ev300-demb
 	"
@@ -32,14 +32,14 @@ fi
 
 for board in $board_list
 do
-	case $(echo $board | tr a-z A-Z) in
-	*16EV2*)
+	case $(echo $board | tr A-Z a-z) in
+	*16ev2*)
 		soc=hi3516ev200
 		;;
-	*16EV3*)
+	*16ev3*)
 		soc=hi3516ev300
 		;;
-	*18EV3*)
+	*18ev3*)
 		soc=hi3518ev300
 		;;
 	*)

@@ -22,7 +22,7 @@
 
 / {
 	model = "16EV2-2053-V1.1";
-	compatible = "hisilicon,16EV2-2053",
+	compatible = "hisilicon,16ev2-2053",
 		"hisilicon,hi3516ev200";
 
 	memory {
