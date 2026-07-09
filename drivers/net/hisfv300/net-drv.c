@@ -548,10 +548,16 @@ static int hieth_register_dev(unsigned char port_id)
     snprintf(dev->name, sizeof(dev->name) - 1, "eth%d", port_id);
 
     int soc_sn_len = 0;
-    const char *soc_sn = soc_get_sn(&soc_sn_len);
-    if (soc_sn && soc_sn_len == 6 * 4) { // Soc SN saves in 6 registers
-        for (int i = 0; i < 6; i ++)
-            dev->enetaddr[i] = (unsigned char)soc_sn[i * 4];
+    const uint8_t *soc_sn = soc_get_sn(&soc_sn_len);
+
+    if (soc_sn && soc_sn_len > 0) { // Soc SN saves in 6 registers
+        int i = 0, j = 0;
+
+		while (i < 6 && j < soc_sn_len) {
+            dev->enetaddr[i] = soc_sn[j];
+			i++;
+			j += (soc_sn_len + 5) / 6;
+		}
         dev->enetaddr[0] &= 0xFE;
     } else {
         printf("Failed to get SoC SN, use random mac address\n");
