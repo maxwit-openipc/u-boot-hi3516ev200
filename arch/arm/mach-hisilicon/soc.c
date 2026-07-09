@@ -1,12 +1,15 @@
 #include <asm/io.h>
 
+#define CHIP_ID_REG 0x12020EE0
+
+#define HI3516EV200 0x3516E200
+#define HI3516EV300 0x3516E300
+#define HI3518EV300 0x3518E300
+
 #define SOC_SN_LEN 24
-#define SOC_ID_LEN 4
 
-static char g_soc_sn[SOC_SN_LEN] = {0};
-static uint32_t g_soc_id = 0;
-
-const char *soc_get_sn(int *len)
+static uint8_t g_soc_sn[SOC_SN_LEN];
+const uint8_t *soc_get_sn(int *len)
 {
     uint32_t sn_reg_start = 0x12020400;
     for (int i = 0; i < 6; i ++) // SOC SN saves in 6 registers, each register saves 4 bytes
@@ -22,10 +25,27 @@ const char *soc_get_sn(int *len)
     return g_soc_sn;
 }
 
-const char* soc_get_id(int *len)
+const char* soc_get_name()
 {
-    g_soc_id = readl(0x12020EE0);
+    uint32_t soc_id;
+    char *soc_name;
 
-    *len = SOC_ID_LEN;
-    return (const char*)&g_soc_id;
+    soc_id = readl(CHIP_ID_REG);
+
+	switch (soc_id) {
+		case HI3516EV200:
+			soc_name = "hi3516ev200";
+			break;
+		case HI3516EV300:
+			soc_name = "hi3516ev300";
+			break;
+		case HI3518EV300:
+			soc_name = "hi3518ev300";
+			break;
+		default:
+			// printf("unknown chipid 0x%08X\n", soc_id);
+			soc_name = NULL;
+	};
+
+    return soc_name;
 }
