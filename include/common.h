@@ -290,7 +290,7 @@ static inline int print_cpuinfo(void)
 int update_flash_size(int flash_size);
 int arch_early_init_r(void);
 
-const char *soc_get_name();
+const char *soc_get_name(void);
 const uint8_t *soc_get_sn(int *len);
 
 /**

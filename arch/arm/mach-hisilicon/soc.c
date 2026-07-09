@@ -27,7 +27,7 @@ const uint8_t *soc_get_sn(int *len)
     return g_soc_sn;
 }
 
-const char* soc_get_name()
+const char *soc_get_name(void)
 {
     uint32_t soc_id;
     char *soc_name;
