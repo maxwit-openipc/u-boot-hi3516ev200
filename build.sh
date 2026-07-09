@@ -11,9 +11,8 @@ else
 	"
 fi
 
-test -z $OUTPUT && OUTPUT=output
+OUTPUT=${OUTPUT:-output}
 # rm -vf $OUTPUT/u-boot*
-mkdir -p $OUTPUT
 
 if [ -z "$TOOLCHAIN" ]; then
 	for t in arm-himix100-linux- arm-linux-gcc arm-none-eabi-
