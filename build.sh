@@ -5,6 +5,7 @@ if [ $# -gt 0 ]; then
 else
 	board_list="
 	hi3516ev200-demb
+	16EV2-2053
 	hi3516ev300-demb
 	hi3518ev300-demb
 	"
@@ -31,25 +32,38 @@ fi
 
 for board in $board_list
 do
-    soc=${board%-demb} # FIXME
+	case $(echo $board | tr a-z A-Z) in
+	*16EV2*)
+		soc=hi3516ev200
+		;;
+	*16EV3*)
+		soc=hi3516ev300
+		;;
+	*18EV3*)
+		soc=hi3518ev300
+		;;
+	*)
+		echo "'$board' NOT supported"
+		exit 1
+	esac
 
-    echo "Building u-boot for $soc ..."
+	echo "Building u-boot for $board ($soc) ..."
 
-    make distclean
+	make distclean
 
-    make ${soc}_defconfig
+	make ${soc}_defconfig
 
-    cp -v reg_info_${soc}.bin .reg
-    make CROSS_COMPILE=$TOOLCHAIN DEVICE_TREE=${board} $XOPT || exit 1
+	cp -v reg_info_${soc}.bin .reg
+	make CROSS_COMPILE=$TOOLCHAIN DEVICE_TREE=${board} $XOPT || exit 1
 
-    [ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash
-    cp -v tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/${soc}/hw_compressed/ || exit 1
+	[ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash
+	cp -v tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/${soc}/hw_compressed/ || exit 1
 
-    make CROSS_COMPILE=$TOOLCHAIN u-boot-z.bin || exit 1
+	make CROSS_COMPILE=$TOOLCHAIN u-boot-z.bin || exit 1
 
-    # cp -v u-boot-${soc}.bin u-boot-${soc}-universal.bin
-    mkdir -vp $OUTPUT/$soc
-    cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
+	# cp -v u-boot-${soc}.bin u-boot-${soc}-universal.bin
+	mkdir -vp $OUTPUT/$soc
+	cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
 
-    echo
+	echo
 done
