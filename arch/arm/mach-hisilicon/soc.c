@@ -6,14 +6,16 @@
 #define HI3516EV300 0x3516E300
 #define HI3518EV300 0x3518E300
 
+// SOC SN saves in 6 registers, each register saves 4 bytes
+#define SN_REG_BASE 0x12020F00
 #define SOC_SN_LEN 24
 
 static uint8_t g_soc_sn[SOC_SN_LEN];
 const uint8_t *soc_get_sn(int *len)
 {
-    uint32_t sn_reg_start = 0x12020400;
-    for (int i = 0; i < 6; i ++) // SOC SN saves in 6 registers, each register saves 4 bytes
-    {
+    uint32_t sn_reg_start = SN_REG_BASE;
+
+    for (int i = 0; i < SOC_SN_LEN / 4; i++) {
         uint32_t reg_val = readl(sn_reg_start + i * 4);
         g_soc_sn[i * 4] = reg_val & 0xFF;
         g_soc_sn[i * 4 + 1] = (reg_val >> 8) & 0xFF;
