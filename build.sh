@@ -6,6 +6,7 @@ else
 	board_list="
 	hi3516ev200-demb
 	16EV2-2053
+	blk16ev2-4023-38x38
 	hi3516ev300-demb
 	hi3518ev300-demb
 	"

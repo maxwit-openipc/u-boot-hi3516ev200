@@ -296,8 +296,10 @@ dtb-$(CONFIG_SOC_KEYSTONE) += k2hk-evm.dtb \
 dtb-$(CONFIG_TARGET_SAMA5D2_XPLAINED) += \
 	at91-sama5d2_xplained.dtb
 
-dtb-$(CONFIG_TARGET_HI3516EV200) += hi3516ev200-demb.dtb
-dtb-$(CONFIG_TARGET_HI3516EV200) += 16EV2-2053.dtb
+dtb-$(CONFIG_TARGET_HI3516EV200) += hi3516ev200-demb.dtb \
+	16EV2-2053.dtb \
+	blk16ev2-4230-38x38.dtb
+
 dtb-$(CONFIG_TARGET_HI3516EV300) += hi3516ev300-demb.dtb
 dtb-$(CONFIG_TARGET_HI3518EV300) += hi3518ev300-demb.dtb
 
