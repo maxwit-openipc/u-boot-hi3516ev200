@@ -1,0 +1,2 @@
+config TARGET_HIBVT
+	bool

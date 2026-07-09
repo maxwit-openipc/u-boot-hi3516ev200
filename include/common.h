@@ -290,6 +290,9 @@ static inline int print_cpuinfo(void)
 int update_flash_size(int flash_size);
 int arch_early_init_r(void);
 
+const char *soc_get_name();
+const uint8_t *soc_get_sn(int *len);
+
 /**
  * arch_cpu_init_dm() - init CPU after driver model is available
  *

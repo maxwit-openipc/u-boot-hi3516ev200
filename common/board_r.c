@@ -73,15 +73,9 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-#define HI3516EV200 0x3516E200
-#define HI3516EV300 0x3516E300
-#define HI3518EV300 0x3518E300
-
 #if defined(CONFIG_SPARC)
 extern int prom_init(void);
 #endif
-
-#define CHIP_ID_REG 0x12020EE0
 
 ulong monitor_flash_len;
 
@@ -539,6 +533,14 @@ static int should_load_env(void)
 #endif
 }
 
+static inline char value_to_hexchar(unsigned int value)
+{
+	if (value < 10)
+		return '0' + value;
+	else
+		return 'A' + (value - 10);
+}
+
 static int initr_env(void)
 {
 	/* initialize environment */
@@ -573,25 +575,29 @@ static int initr_env(void)
 #endif /* CONFIG_405GP, CONFIG_405EP */
 #endif /* CONFIG_SYS_EXTBDINFO */
 
-	uint32_t chip_id = readl(CHIP_ID_REG);
-	const char *soc_name= NULL;
+	const char *soc_name = soc_get_name();
+	if (soc_name != NULL) {
+		setenv("soc", soc_name);
+	}
 
-	switch (chip_id) {
-		case HI3516EV200:
-			soc_name = "hi3516ev200";
-			break;
-		case HI3516EV300:
-			soc_name = "hi3516ev300";
-			break;
-		case HI3518EV300:
-			soc_name = "hi3518ev300";
-			break;
-		default:
-			printf("unknown chipid 0x%08X\n", chip_id);
-			break;
-	};
+	int soc_sn_len = 0;
+	const uint8_t *soc_sn = NULL;
 
-	setenv("soc", soc_name);
+	soc_sn = soc_get_sn(&soc_sn_len);
+	if (soc_sn && soc_sn_len > 0) {
+		int i;
+		char soc_sn_str[soc_sn_len * 2 + 1];
+
+		for (i = 0; i < soc_sn_len; i++) {
+			soc_sn_str[i * 2] = value_to_hexchar(soc_sn[i] & 0x0F);
+			soc_sn_str[i * 2 + 1] = value_to_hexchar(soc_sn[i] >> 4);
+		}
+
+		soc_sn_str[i * 2] = '\0';
+		setenv("SN", soc_sn_str);
+	} else {
+		printf("Failed to get SoC SN!\n");
+	}
 
 #ifdef CONFIG_OF_CONTROL
 	int len = 0;
