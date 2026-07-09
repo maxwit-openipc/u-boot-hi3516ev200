@@ -543,6 +543,11 @@ static int hieth_register_dev(unsigned char port_id)
     dev->send = hieth_send;
     dev->recv = hieth_recv;
     dev->priv = &hieth_devs_priv[port_id];
+
+    for (int i = 0; i < MAC_LEN; i++)
+        dev->enetaddr[i] = readl(CHIP_SERIAL_REG_START + i * 4) & 0xff;
+    dev->enetaddr[0] &= 0xfe; // clear multicast bit
+
     hieth_devs_priv[port_id].iobase_phys = REG_BASE_SF;
     snprintf(dev->name, sizeof(dev->name) - 1, "eth%d", port_id);
 
