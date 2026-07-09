@@ -23,6 +23,7 @@
 #include "ctrl.h"
 #include "glb.h"
 #include "sys.h"
+#include <common.h>
 #include <config.h>
 #include <miiphy.h>
 #include <net.h>
@@ -545,6 +546,16 @@ static int hieth_register_dev(unsigned char port_id)
     dev->priv = &hieth_devs_priv[port_id];
     hieth_devs_priv[port_id].iobase_phys = REG_BASE_SF;
     snprintf(dev->name, sizeof(dev->name) - 1, "eth%d", port_id);
+
+    int soc_sn_len = 0;
+    const char *soc_sn = soc_get_sn(&soc_sn_len);
+    if (soc_sn && soc_sn_len == 6 * 4) { // Soc SN saves in 6 registers
+        for (int i = 0; i < 6; i ++)
+            dev->enetaddr[i] = (unsigned char)soc_sn[i * 4];
+        dev->enetaddr[0] &= 0xFE;
+    } else {
+        printf("Failed to get SoC SN, use random mac address\n");
+    }
 
     eth_register(dev);
 

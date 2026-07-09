@@ -539,6 +539,14 @@ static int should_load_env(void)
 #endif
 }
 
+static inline char value_to_hexchar(unsigned int value)
+{
+	if (value < 10)
+		return '0' + value;
+	else
+		return 'A' + (value - 10);
+}
+
 static int initr_env(void)
 {
 	/* initialize environment */
@@ -597,6 +605,23 @@ static int initr_env(void)
 	};
 
 	setenv("soc", soc_name);
+
+	int soc_sn_len = 0;
+	const char *soc_sn = NULL;
+	soc_sn = soc_get_sn(&soc_sn_len);
+	if (soc_sn && soc_sn_len == 6 * 4) { // Soc SN saves in 6 registers
+		char soc_sn_str[6 * 4 * 2 + 1] = {0};
+		for (int i = 0; i < 6 * 4; i++) {
+			soc_sn_str[i * 2] = value_to_hexchar(soc_sn[i] & 0x0F);
+			soc_sn_str[i * 2 + 1] = value_to_hexchar(soc_sn[i] >> 4);
+		}
+
+		soc_sn_str[6 * 4 * 2] = '\0';
+		setenv("SN", soc_sn_str);
+	} else {
+		printf("Failed to get SoC SN, env 'SN' not set\n");
+	}
+
 #endif
 
 #ifdef CONFIG_OF_CONTROL
