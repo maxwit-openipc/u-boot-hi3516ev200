@@ -7,7 +7,7 @@
 #define HI3518EV300 0x3518E300
 
 // SOC SN saves in 6 registers, each register saves 4 bytes
-#define SN_REG_BASE 0x12020F00
+#define SN_REG_BASE 0x12020400
 #define SOC_SN_LEN 24
 
 static uint8_t g_soc_sn[SOC_SN_LEN];
