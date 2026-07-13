@@ -18,12 +18,12 @@
  */
 
 /dts-v1/;
-#include "hi3516ev200.dtsi"
+#include "hi3516ev300.dtsi"
 
 / {
-	model = "Hisilicon HI3516EV200 DEMO Board";
-	compatible = "hisilicon,hi3516ev200-demb",
-		"hisilicon,hi3516ev200";
+	model = "IPC044LM02M";
+	compatible = "cmcc,ipc044lm02m",
+	    "hisilicon,hi3516ev300";
 
 	memory {
 		device_type = "memory";
@@ -44,31 +44,31 @@
 };
 
 &i2c_bus0 {
-	status = "okay";
-	clock-frequency = <100000>;
+    status = "okay";
+    clock-frequency = <100000>;
 };
 
 &i2c_bus1 {
-	status = "okay";
-	clock-frequency = <100000>;
+    status = "okay";
+    clock-frequency = <100000>;
 };
 
 &i2c_bus2 {
-	status = "okay";
-	clock-frequency = <100000>;
+    status = "okay";
+    clock-frequency = <100000>;
 };
 
 &spi_bus0{
-	status = "okay";
-	num-cs = <1>;
+    status = "okay";
+    num-cs = <1>;
 
-	spidev@0 {
-		compatible = "rohm,dh2228fv";
-		reg = <0>;
-		pl022,interface = <0>;
-		pl022,com-mode = <0>;
-		spi-max-frequency = <50000000>;
-	};
+    spidev@0 {
+        compatible = "rohm,dh2228fv";
+        reg = <0>;
+        pl022,interface = <0>;
+        pl022,com-mode = <0>;
+        spi-max-frequency = <50000000>;
+    };
 };
 
 &spi_bus1{
@@ -144,6 +144,10 @@
 	status = "okay";
 };
 
+&gpio_chip3 {
+	status = "okay";
+};
+
 &gpio_chip4 {
 	status = "okay";
 };
@@ -161,6 +165,10 @@
 };
 
 &gpio_chip8 {
+	status = "okay";
+};
+
+&gpio_chip9 {
 	status = "okay";
 };
 

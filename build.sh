@@ -1,68 +1,67 @@
 #!/usr/bin/env bash
 
-if [ $# -gt 0 ]; then
-	board_list=$1
-else
-	board_list="
-	hi3516ev200-demb
-	16ev2-2053
-	hi3516ev300-demb
-	hi3518ev300-demb
-	"
-fi
+OUTPUT=${OUTPUT:-$PWD/output}
 
-OUTPUT=${OUTPUT:-output}
-# rm -vf $OUTPUT/u-boot*
-
-if [ -z "$TOOLCHAIN" ]; then
-	for t in arm-himix100-linux- arm-linux-gcc arm-none-eabi-
-	do
-		if which ${t}gcc > /dev/null; then
-			TOOLCHAIN=$t
-			break
-		fi
-	done
-fi
-
-if [ -z $TOOLCHAIN ]; then
-	echo "No toolchain found!"
-	exit 1
-fi
-
-for board in $board_list
+for dts in `ls arch/arm/dts/*.dts`
 do
-	case $(echo $board | tr A-Z a-z) in
-	*16ev2*)
-		soc=hi3516ev200
-		;;
-	*16ev3*)
-		soc=hi3516ev300
-		;;
-	*18ev3*)
-		soc=hi3518ev300
-		;;
-	*)
-		echo "'$board' NOT supported"
-		exit 1
-	esac
+    for pattern in 'hisilicon,hi35' 'goke,gk72'
+    do
+        chip_ids=($(grep -o "\"${pattern}.*\";" $dts | sed 's/[",;]/ /g'))
+        test ${#chip_ids[@]} -ne 2 && continue
 
-	echo "Building u-boot for $board ($soc) ..."
+        # vendor=${chip_ids[0]}
+        soc=${chip_ids[1]}
+        board=$(grep -m1 'compatible' $dts | awk -F ',' '{print $2}' | sed 's/[",;]//g')
+        dtb=$(basename ${dts%.dts})
 
-	make distclean
+        for tc in arm-openipc-linux-musleabi- \
+            arm-linux-musleabi- \
+            arm-linux-gnueabi- \
+            arm-linux- \
+            arm-none-eabi-
+        do
+            for out in $PWD/output $(dirname $PWD)/output $OUTPUT
+            do
+                path=$out/$soc/host/bin
+                if test -e $path/${tc}gcc; then
+                    toolchain=$path/$tc
+                    break
+                fi
+            done
 
-	make ${soc}_defconfig
+            test -n "$toolchain" && break
 
-	cp -v reg_info_${soc}.bin .reg
-	make CROSS_COMPILE=$TOOLCHAIN DEVICE_TREE=${board} $XOPT || exit 1
+            if which ${tc}gcc > /dev/null; then
+            	toolchain=$tc
+            	break
+            fi
+        done
+        
+        if [ -z "$toolchain" ]; then
+        	echo "No toolchain found for $soc!"
+        	echo "Skip to build u-boot for $board!"
+            echo
+            continue
+        fi
 
-	[ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash
-	cp -v tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/${soc}/hw_compressed/ || exit 1
+	    echo "Building u-boot for $board ($soc) ..."
 
-	make CROSS_COMPILE=$TOOLCHAIN u-boot-z.bin || exit 1
+	    make distclean
 
-	# cp -v u-boot-${soc}.bin u-boot-${soc}-universal.bin
-	mkdir -vp $OUTPUT/$soc
-	cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
+	    make ${soc}_defconfig
 
-	echo
+	    cp -v reg_info_${soc}.bin .reg
+	    make CROSS_COMPILE=$toolchain DEVICE_TREE=$dtb $XOPT || exit 1
+
+	    [ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash
+	    cp -v tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/$soc/hw_compressed/ || exit 1
+
+	    make CROSS_COMPILE=$toolchain u-boot-z.bin || exit 1
+
+	    # cp -v u-boot-${soc}.bin u-boot-${soc}-universal.bin
+	    mkdir -vp $OUTPUT/$soc
+	    cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
+
+	    echo
+    done
 done
