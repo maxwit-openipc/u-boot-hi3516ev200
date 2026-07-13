@@ -2,17 +2,18 @@
 
 OUTPUT=${OUTPUT:-$PWD/output}
 XOPT=${XOPT:-V=1}
+TARGET_BOARD=$1
 
 for dts in `ls arch/arm/dts/*.dts`
 do
-    chip_ids=($(grep -m1 -o '"hisilicon,hi35.*";' $dts | sed 's/[",;]/ /g'))
+    chip_ids=($(grep -m1 -o '"hisilicon,hi35[0-9]\+[adce]v[1-9]00";' $dts | sed 's/[",;]/ /g'))
     test ${#chip_ids[@]} -ne 2 && continue
 
     # vendor=${chip_ids[0]}
     soc=${chip_ids[1]}
 
     board=$(grep -m1 'compatible' $dts | awk -F ',' '{print $2}' | sed 's/[",;]//g')
-    dtb=$(basename ${dts%.dts})
+    test -n "$TARGET_BOARD" -a "$TARGET_BOARD" != $board && continue
 
     for tc in arm-openipc-linux-musleabi- \
         arm-linux-musleabi- \
@@ -50,6 +51,7 @@ do
 
     make ${soc}_defconfig
 
+    dtb=$(basename ${dts%.dts})
     cp -v reg_info_${soc}.bin .reg
     make CROSS_COMPILE=$toolchain DEVICE_TREE=$dtb $XOPT || exit 1
 
@@ -63,4 +65,5 @@ do
     cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
 
     echo
+    test -n "$TARGET_BOARD" -a "$TARGET_BOARD" == $board && break
 done
