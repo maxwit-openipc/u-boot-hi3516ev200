@@ -46,6 +46,10 @@
 &i2c_bus0 {
     status = "okay";
     clock-frequency = <100000>;
+
+    cis: cis@0x3c {
+        compatible = "ov/sp,sp2305";
+    };
 };
 
 &i2c_bus1 {
