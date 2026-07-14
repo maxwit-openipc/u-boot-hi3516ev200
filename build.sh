@@ -4,6 +4,7 @@ OUTPUT=${OUTPUT:-$PWD/output}
 XOPT=${XOPT:-V=1}
 TARGET_BOARD=$1
 
+count=0
 for dts in `ls arch/arm/dts/*.dts`
 do
     chip_ids=($(grep -m1 -o '"hisilicon,hi35[0-9]\+[adce]v[1-9]00";' $dts | sed 's/[",;]/ /g'))
@@ -60,10 +61,21 @@ do
 
     make CROSS_COMPILE=$toolchain u-boot-z.bin || exit 1
 
+    outfile="u-boot-${soc}.bin"
+    outsize=$(stat -c %s $outfile)
+    if [ "$outsize" -gt $((256 << 10)) ]; then
+        echo "$outfile size is to large ($((outsize >> 10))K)!"
+        exit 1
+    fi
+
     # cp -v u-boot-${soc}.bin u-boot-${soc}-universal.bin
     mkdir -vp $OUTPUT/$soc
-    cp -v u-boot-${soc}.bin $OUTPUT/$soc/u-boot-${board}.bin
+    cp -v $outfile $OUTPUT/$soc/u-boot-${board}.bin
 
+    ((count++))
     echo
     test -n "$TARGET_BOARD" -a "$TARGET_BOARD" == $board && break
 done
+
+echo "Total $count boards was built."
+echo
