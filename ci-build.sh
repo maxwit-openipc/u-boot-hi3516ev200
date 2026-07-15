@@ -72,7 +72,7 @@ do
     mkdir -vp $OUTPUT/$soc
     cp -v $outfile $OUTPUT/$soc/u-boot-${board}.bin
 
-    ((count++))
+    count=$((count + 1))
     echo
 
     test "$target_board" == $board && break
