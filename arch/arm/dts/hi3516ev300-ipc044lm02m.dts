@@ -25,6 +25,10 @@
 	compatible = "cmcc,ipc044lm02m",
 	    "hisilicon,hi3516ev300";
 
+    aliases {
+        cis = &cis;
+    };
+
 	memory {
 		device_type = "memory";
 		reg = <0x40000000 0x20000000>;

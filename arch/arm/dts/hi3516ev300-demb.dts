@@ -25,12 +25,15 @@
 	compatible = "hisilicon,hi3516ev300-demb",
 	    "hisilicon,hi3516ev300";
 
+    aliases {
+        cis = &cis;
+    };
+
 	memory {
 		device_type = "memory";
 		reg = <0x40000000 0x20000000>;
 	};
 };
-
 &uart0 {
 	status = "okay";
 };
@@ -51,6 +54,11 @@
 &i2c_bus1 {
     status = "okay";
     clock-frequency = <100000>;
+
+    cis: cis@0x34 {
+        compatible = "sony,imx335";
+        status = "okay";
+    };
 };
 
 &i2c_bus2 {
