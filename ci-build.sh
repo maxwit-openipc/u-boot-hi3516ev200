@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -e
 
 target_board=$1
 OUTPUT=${OUTPUT:-$PWD/output}
@@ -54,12 +54,12 @@ do
 
     dtb=$(basename ${dts%.dts})
     cp -v reg_info_${soc}.bin .reg
-    make CROSS_COMPILE=$toolchain DEVICE_TREE=$dtb $XOPT || exit 1
+    make CROSS_COMPILE=$toolchain DEVICE_TREE=$dtb $XOPT
 
-    [ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip SHELL=/bin/bash
-    cp -v tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/$soc/hw_compressed/ || exit 1
+    [ ! -f tools/hi_gzip/bin/gzip ] && make -C tools/hi_gzip
+    cp -v tools/hi_gzip/bin/gzip arch/arm/cpu/armv7/$soc/hw_compressed/
 
-    make CROSS_COMPILE=$toolchain u-boot-z.bin || exit 1
+    make CROSS_COMPILE=$toolchain u-boot-z.bin
 
     outfile="u-boot-${soc}.bin"
     outsize=$(stat -c %s $outfile)
