@@ -172,7 +172,7 @@ CONFIG_ARMV7_NONSEC=y
 # CONFIG_ARMV7_BOOT_SEC_DEFAULT is not set
 CONFIG_ARMV7_PSCI_NR_CPUS=4
 # CONFIG_ARMV7_LPAE is not set
-CONFIG_IDENT_STRING=""
+CONFIG_IDENT_STRING=" by MaxWit"
 # CONFIG_PRE_CONSOLE_BUFFER is not set
 CONFIG_MMC=y
 # CONFIG_VIDEO is not set
@@ -181,7 +181,6 @@ CONFIG_MMC=y
 # ARM debug
 #
 # CONFIG_DEBUG_LL is not set
-CONFIG_DEFAULT_DEVICE_TREE=""
 # CONFIG_AHCI is not set
 
 #
@@ -200,7 +199,7 @@ CONFIG_SYS_MALLOC_CLEAR_ON_INIT=y
 #
 # Boot images
 #
-CONFIG_FIT=y
+# CONFIG_FIT is not set
 # CONFIG_FIT_VERBOSE is not set
 # CONFIG_FIT_SIGNATURE is not set
 # CONFIG_FIT_BEST_MATCH is not set
@@ -250,6 +249,7 @@ CONFIG_KERNEL_LOAD_ADDR=0x42000000
 CONFIG_SYS_NO_FLASH=y
 # CONFIG_VERSION_VARIABLE is not set
 # CONFIG_DISPLAY_CPUINFO is not set
+CONFIG_DISPLAY_BOARDINFO=y
 # CONFIG_CMD_CREAD is not set
 
 #
@@ -399,8 +399,6 @@ CONFIG_SUPPORT_OF_CONTROL=y
 # Device Tree Control
 #
 CONFIG_OF_CONTROL=y
-CONFIG_OF_SEPARATE=y
-# CONFIG_OF_EMBED is not set
 CONFIG_NET=y
 CONFIG_NET_RANDOM_ETHADDR=y
 # CONFIG_NETCONSOLE is not set
@@ -424,8 +422,6 @@ CONFIG_DM_SEQ_ALIAS=y
 # CONFIG_REGMAP is not set
 # CONFIG_SPL_REGMAP is not set
 # CONFIG_DEVRES is not set
-CONFIG_SIMPLE_BUS=y
-CONFIG_OF_TRANSLATE=y
 # CONFIG_ADC is not set
 # CONFIG_ADC_EXYNOS is not set
 # CONFIG_ADC_SANDBOX is not set
@@ -488,7 +484,6 @@ CONFIG_OF_TRANSLATE=y
 #
 # Mailbox Controller Support
 #
-# CONFIG_DM_MAILBOX is not set
 
 #
 # Memory Controller drivers
@@ -574,7 +569,6 @@ CONFIG_PHY_HISI_USB=y
 #
 # Power Domain Support
 #
-# CONFIG_POWER_DOMAIN is not set
 # CONFIG_DM_PMIC is not set
 # CONFIG_DM_REGULATOR is not set
 # CONFIG_DM_PWM is not set
@@ -587,7 +581,6 @@ CONFIG_PHY_HISI_USB=y
 #
 # Reset Controller Support
 #
-# CONFIG_DM_RESET is not set
 
 #
 # Real Time Clock
@@ -657,7 +650,6 @@ CONFIG_PHY_HISI_USB=y
 # CONFIG_VIDEO_LCD_SSD2828 is not set
 # CONFIG_VIDEO_MVEBU is not set
 # CONFIG_DISPLAY is not set
-# CONFIG_VIDEO_TEGRA20 is not set
 # CONFIG_VIDEO_BRIDGE is not set
 # CONFIG_LCD is not set
 # CONFIG_PHYS_TO_BUS is not set
@@ -692,6 +684,7 @@ CONFIG_LIB_RAND=y
 #
 # CONFIG_LZ4 is not set
 # CONFIG_ERRNO_STR is not set
+CONFIG_OF_LIBFDT=y
 # CONFIG_OF_LIBFDT_OVERLAY is not set
 # CONFIG_SPL_OF_LIBFDT is not set
 
@@ -703,3 +696,5 @@ CONFIG_HWDEC=y
 CONFIG_OPTEE_LOAD_ADDR=0x00000000
 # CONFIG_BOOTM_OPTEE is not set
 # CONFIG_UNIT_TEST is not set
+CONFIG_CMD_FDT=y
+# CONFIG_EFI_LOADER is not set
